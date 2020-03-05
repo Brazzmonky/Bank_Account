@@ -1,0 +1,39 @@
+@model Transaction
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bank Accounts</title>
+</head>
+<body>
+    <div class="header">
+    <h1>Welcome, @ViewBag.User.first_name @ViewBag.User.last_name</h1>
+    <H4>Current Balance: $@ViewBag.User.Balance.ToString("0.00")</H4>
+    </div>
+    <br>
+    <form action="/account/@ViewBag.User.UserId" method="POST">
+        <label asp-for="Amount"></label>
+        <span asp-validation-for="Amount"></span>
+        <input asp-for="Amount">
+        <input type="submit" name="" value="Submit">                
+    </form>
+    <br>
+    <table>
+        <tr>
+            <th></th>
+            <th></th>    
+        </tr>
+        @foreach (var trans in ViewBag.Transactions)
+        {
+            <tr>
+                <th>$@trans.Amount.ToString("0.00")</th>
+                <th>@trans.created_at.ToString("MMM d yyy")</th>
+            </tr>
+        }
+
+    </table>
+    <a href="/logout">Logout</a>
+</body>
+</html>
